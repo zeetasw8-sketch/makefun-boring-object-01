@@ -23,11 +23,12 @@ function loadReview(): string {
   return raw.trim();
 }
 
+function isWithinLimit(review: string): boolean {
+  return review.length > 0 && review.length <= MAX_REVIEW_CHARS;
+}
+
 function checkReview(review: string): void {
-  if (review.length === 0) {
-    throw new Error("review line is empty");
-  }
-  if (review.length > MAX_REVIEW_CHARS) {
+  if (!isWithinLimit(review)) {
     throw new Error("review line must be 1-200 characters");
   }
   if (sentenceChunkCount(review) !== 1) {
